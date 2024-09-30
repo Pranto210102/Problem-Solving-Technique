@@ -1,0 +1,33 @@
+bool isPos(vector<int>&cmp, vector<int>&tmp){ // LC 3298--week-416
+        for(int i=0;i<26;i++){
+            if(cmp[i]<tmp[i])return false;
+        }
+        return true;
+    }
+    long long validSubstringCount(string word1, string word2) {
+         vector<int>tmp(26,0);
+        vector<int>cmp(26,0);
+        for(auto i : word2){
+            int x=i-'a';
+            tmp[x]++;
+        }
+
+        int j=0;
+        int n=word1.size();
+
+        long long ans=0;
+        for(int i=0;i<n;i++){
+            int x=word1[i]-'a';
+            cmp[x]++;
+            
+            while(isPos(cmp,tmp)){
+                ans+=n-i;
+                int y=word1[j]-'a';
+                cmp[y]--;
+                j++;
+            }
+
+        }
+
+        return ans;
+     }
